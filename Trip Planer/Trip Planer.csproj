@@ -63,6 +63,12 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="about.html" />
+    <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\ManageBlogs.aspx" />
+    <Content Include="Admin\ManageDestinations.aspx" />
+    <Content Include="Admin\ManageFeedback.aspx" />
+    <Content Include="Admin\ManageTrips.aspx" />
+    <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="Blog.aspx" />
     <Content Include="blog.html" />
     <Content Include="contact.html" />
@@ -224,6 +230,14 @@
     <Content Include="trips-1.0.0\trip-single.html" />
     <Content Include="trips-1.0.0\trips.html" />
     <Content Include="trips.html" />
+    <Content Include="User\CreateTrip.aspx" />
+    <Content Include="User\Feedback.aspx" />
+    <Content Include="User\Itinerary.aspx" />
+    <Content Include="User\MyProfile.aspx" />
+    <Content Include="User\MyTrips.aspx" />
+    <Content Include="User\SearchDestination.aspx" />
+    <Content Include="User\TripDetails.aspx" />
+    <Content Include="User\UserHome.aspx" />
     <Content Include="Web.config" />
     <Content Include="Registration.aspx" />
   </ItemGroup>
@@ -234,6 +248,48 @@
     </Compile>
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageBlogs.aspx.cs">
+      <DependentUpon>ManageBlogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageBlogs.aspx.designer.cs">
+      <DependentUpon>ManageBlogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageDestinations.aspx.cs">
+      <DependentUpon>ManageDestinations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageDestinations.aspx.designer.cs">
+      <DependentUpon>ManageDestinations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageFeedback.aspx.cs">
+      <DependentUpon>ManageFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageFeedback.aspx.designer.cs">
+      <DependentUpon>ManageFeedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageTrips.aspx.cs">
+      <DependentUpon>ManageTrips.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageTrips.aspx.designer.cs">
+      <DependentUpon>ManageTrips.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog.aspx.cs">
       <DependentUpon>Blog.aspx</DependentUpon>
@@ -277,6 +333,62 @@
     </Compile>
     <Compile Include="Trip.aspx.designer.cs">
       <DependentUpon>Trip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\CreateTrip.aspx.cs">
+      <DependentUpon>CreateTrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\CreateTrip.aspx.designer.cs">
+      <DependentUpon>CreateTrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Itinerary.aspx.cs">
+      <DependentUpon>Itinerary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Itinerary.aspx.designer.cs">
+      <DependentUpon>Itinerary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\MyProfile.aspx.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\MyProfile.aspx.designer.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\MyTrips.aspx.cs">
+      <DependentUpon>MyTrips.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\MyTrips.aspx.designer.cs">
+      <DependentUpon>MyTrips.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\SearchDestination.aspx.cs">
+      <DependentUpon>SearchDestination.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\SearchDestination.aspx.designer.cs">
+      <DependentUpon>SearchDestination.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\TripDetails.aspx.cs">
+      <DependentUpon>TripDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\TripDetails.aspx.designer.cs">
+      <DependentUpon>TripDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\UserHome.aspx.cs">
+      <DependentUpon>UserHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\UserHome.aspx.designer.cs">
+      <DependentUpon>UserHome.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -522,6 +634,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
