@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
 
     <!doctype html>
@@ -40,7 +40,7 @@
                     <div class="row align-items-center position-relative">
                         <div class="col-3 ">
                             <div class="site-logo">
-                                <a href="Home.aspx" class="font-weight-bold">
+                                <a href="User/UserHome.aspx" class="font-weight-bold">
                                     <img src="images/logo.png" alt="Image" class="img-fluid">
                                 </a>&nbsp;
                             </div>
@@ -48,24 +48,27 @@
                         <div class="col-9  text-right">
                             <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
                             <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                                <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                                    <li class="active"><a href="Home.aspx" class="nav-link">Home</a></li>
-                                    <li><a href="about.html" class="nav-link">About</a></li>
-                                    <li><a href="trips.html" class="nav-link">Trips</a></li>
-                                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                                <ul class="site-menu main-menu js-clone-nav ml-auto">
+                                    <li><a href="User/UserHome.aspx" class="nav-link">Home</a> </li>
+                                    <li><a href="User/MyProfile.aspx" class="nav-link">My Profile</a> </li>
+                                    <li><a href="User/CreateTrip.aspx" class="nav-link">Create Trip</a> </li>
+                                    <li><a href="User/MyTrips.aspx" class="nav-link">My Trips</a> </li>
+                                    <li><a href="User/SearchDestination.aspx" class="nav-link">Destinations</a> </li>
+                                    <li><a href="User/Feedback.aspx" class="nav-link">Feedback</a> </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </div>
             </header>
+
+            <asp:Label ID="lblWelcome" runat="server"></asp:Label>
             <div class="ftco-blocks-cover-1">
                 <div class="site-section-cover overlay" style="background-image: url('images/hero_1.jpg')">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-md-5" data-aos="fade-right">
-                                <h1 class="mb-3 text-white">Let's Enjoy The Wonders of Nature</h1>
+                                <h1 class="mb-3 text-white">Welcome to Trip Planner</h1>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta veritatis in tenetur doloremque, maiores doloribus officia iste. Dolores.
                                 </p>
@@ -79,8 +82,7 @@
             </div>
         </div>
 </asp:Content>
-
-<asp:Content ID="Content3" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
+<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
     <div class="site-section py-5">
         <div class="container">
             <div class="row align-items-center">
@@ -397,7 +399,7 @@
         </div>
     </div>
 </asp:Content>
-<asp:Content ID="Content4" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
+<asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
     <footer class="site-footer bg-light">
         <div class="container">
             <div class="row">
@@ -492,5 +494,6 @@
 </html>
 
 </asp:Content>
+
 
 

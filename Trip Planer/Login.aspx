@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Trip_Planer.Login" %>
+﻿    <%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Trip_Planer.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -121,7 +121,7 @@
             <asp:TextBox ID="txtPassword" runat="server"
                 CssClass="login-input"
                 TextMode="Password"
-                placeholder="Enter your password">
+                placeholder="Enter your password" OnTextChanged="txtPassword_TextChanged">
             </asp:TextBox>
 
 

@@ -61,8 +61,13 @@ namespace Trip_Planer
                     Response.Write("Invalid Email or Password");
                 }
 
-                con.Close();
+                
             }
+        }
+
+        protected void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

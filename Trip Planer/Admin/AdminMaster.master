@@ -1,0 +1,163 @@
+﻿<%@  Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="AdminMaster.aspx.cs" Inherits="Trip_Planer.Admin.AdminMaster" %>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <title>Trip Planner - Admin</title>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f9fc;
+            color: #333;
+        }
+
+        .admin-navbar {
+            background: #1f4e5f;
+            padding: 15px 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        }
+
+        .admin-nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .admin-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .admin-menu {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+        }
+
+            .admin-menu a {
+                color: white;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+                .admin-menu a:hover {
+                    color: #bde7ed;
+                }
+
+        .admin-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+            min-height: 75vh;
+        }
+
+        .admin-footer {
+            background: #1f4e5f;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 900px) {
+
+            .admin-nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .admin-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+    <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    </asp:Content>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Admin Navigation -->
+
+        <header class="admin-navbar">
+
+            <div class="admin-nav-container">
+
+                <a href="Dashboard.aspx"
+                    class="admin-logo">Trip Planner Admin
+                </a>
+
+                <nav class="admin-menu">
+
+                    <a href="Dashboard.aspx">Dashboard
+                    </a>
+
+                    <a href="ManageUsers.aspx">Users
+                    </a>
+
+                    <a href="ManageTrips.aspx">Trips
+                    </a>
+
+                    <a href="ManageDestinations.aspx">Destinations
+                    </a>
+
+                    <a href="ManageBlogs.aspx">Blogs
+                    </a>
+
+                    <a href="ManageFeedback.aspx">Feedback
+                    </a>
+
+                    <a href="../Login.aspx">Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+        <!-- Page Content -->
+
+        <main class="admin-content">
+
+            <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+            </asp:Content>
+        </main>
+
+
+        <!-- Footer -->
+
+        <footer class="admin-footer">
+            © 2026 Trip Planner | Admin Panel
+
+       
+        </footer>
+
+    </form>
+
+</body>
+</html>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
+</asp:Content>

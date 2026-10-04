@@ -61,7 +61,7 @@
 
                                     <div class="col-3 ">
                                         <div class="site-logo">
-                                            <a href="index.html" class="font-weight-bold">
+                                            <a href="User/UserHome.aspx" class="font-weight-bold">
                                                 <img src="images/logo.png" alt="Image" class="img-fluid">
                                             </a>
                                         </div>
@@ -75,12 +75,35 @@
 
 
                                         <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                                            <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                                                <li class="active"><a href="index.html" class="nav-link">Home</a></li>
-                                                <li><a href="about.html" class="nav-link">About</a></li>
-                                                <li><a href="trips.html" class="nav-link">Trips</a></li>
-                                                <li><a href="blog.html" class="nav-link">Blog</a></li>
-                                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                                            <ul class="site-menu main-menu js-clone-nav ml-auto">
+
+                                                <li>
+                                                    <a href="User/UserHome.aspx" class="nav-link">Home</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="User/MyProfile.aspx" class="nav-link">My Profile</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="User/CreateTrip.aspx" class="nav-link">Create Trip</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="User/MyTrips.aspx" class="nav-link">My Trips</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="User/SearchDestination.aspx" class="nav-link">Destinations</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="User/Feedback.aspx" class="nav-link">Feedback</a>
+                                                </li>
+                                                <li>
+                                                    <a href="User/Logout.aspx" class="nav-link">Logout</a>
+                                                </li>
+
                                             </ul>
                                         </nav>
                                     </div>
