@@ -1,125 +1,166 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="MyTrips.aspx.cs" Inherits="Trip_Planer.User.MyTrips" %>
+﻿<%@ Page Title="My Trips" Language="C#" MasterPageFile="~/Site1.Master"
+    AutoEventWireup="true" CodeBehind="MyTrips.aspx.cs"
+    Inherits="Trip_Planer.User.MyTrips" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
-        .trips-page {
-            min-height: 75vh;
-            background: #f5f9fc;
-            padding: 45px 20px;
+        .mytrips-page {
+            min-height: 80vh;
+            padding: 40px 25px;
+            background: #f3f7fb;
+            font-family: Arial, sans-serif;
         }
 
-        .trips-container {
-            max-width: 1100px;
+        .mytrips-container {
+            max-width: 1200px;
             margin: auto;
         }
 
-        .trips-title {
-            text-align: center;
-            color: #1f4e5f;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .trips-subtitle {
-            text-align: center;
-            color: #777;
+        .mytrips-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
             margin-bottom: 30px;
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
+        .mytrips-title {
+            color: #176B87;
+            font-size: 32px;
+            margin: 0 0 10px;
         }
 
-        .create-btn {
-            background: #1f8a9e;
+        .mytrips-subtitle {
+            color: #71818d;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .create-trip-link {
+            display: inline-block;
+            background: #176B87;
             color: white;
-            padding: 11px 20px;
-            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
+            padding: 13px 22px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
         }
 
-            .create-btn:hover {
-                background: #176d7d;
+            .create-trip-link:hover {
+                background: #104e65;
                 color: white;
-                text-decoration: none;
             }
 
-        .trips-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .trip-card {
+        .mytrips-card {
             background: white;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(30, 65, 90, 0.08);
+            overflow-x: auto;
         }
 
-        .trip-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
+        .mytrips-card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #294653;
+            margin: 0 0 22px;
         }
 
-        .trip-card h3 {
-            color: #1f4e5f;
-            margin-bottom: 15px;
+        .trip-grid {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #425563;
         }
 
-        .trip-info {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-            .trip-info strong {
-                color: #333;
+            .trip-grid th {
+                background: #176B87;
+                color: white;
+                text-align: left;
+                padding: 15px 12px;
+                white-space: nowrap;
             }
 
-        .status {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 13px;
-            font-weight: 600;
-            background: #e5f7ed;
-            color: #218838;
-        }
+            .trip-grid td {
+                padding: 15px 12px;
+                border-bottom: 1px solid #e8eef2;
+                vertical-align: top;
+            }
 
-        .details-btn {
+            .trip-grid tr:nth-child(even) {
+                background: #f8fbfd;
+            }
+
+            .trip-grid tr:hover {
+                background: #edf7fa;
+            }
+
+            .trip-grid th:first-child {
+                border-radius: 7px 0 0 0;
+            }
+
+            .trip-grid th:last-child {
+                border-radius: 0 7px 0 0;
+            }
+
+        .trip-message {
             display: block;
+            padding: 25px 10px;
             text-align: center;
-            margin-top: 18px;
-            background: #1f8a9e;
-            color: white;
-            padding: 10px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-weight: 600;
+            color: #176B87;
+            font-size: 15px;
+            font-weight: bold;
         }
 
-            .details-btn:hover {
-                background: #176d7d;
+        .mytrips-note {
+            color: #8797a1;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 650px) {
+            .mytrips-page {
+                padding: 25px 12px;
+            }
+
+            .mytrips-title {
+                font-size: 26px;
+            }
+
+            .mytrips-card {
+                padding: 15px;
+            }
+
+            
+            .trip-grid a {
+                display: inline-block;
+                margin: 3px;
+                padding: 7px 11px;
+                background: #176B87;
                 color: white;
                 text-decoration: none;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: bold;
             }
 
-        @media(max-width: 900px) {
-            .trips-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .trip-grid a:hover {
+                background: #104e65;
             }
-        }
 
-        @media(max-width: 600px) {
-            .trips-grid {
-                grid-template-columns: 1fr;
+            .trip-grid input[type="text"] {
+                width: 110px;
+                padding: 7px;
+                border: 1px solid #cbd9e1;
+                border-radius: 5px;
             }
+
+            
         }
     </style>
 
@@ -128,71 +169,93 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="trips-page">
+    <div class="mytrips-page">
 
-        <div class="trips-container">
+        <div class="mytrips-container">
 
-            <h2 class="trips-title">My Trips</h2>
+            <div class="mytrips-header">
 
-            <p class="trips-subtitle">
-                View and manage your planned trips
-           
-            </p>
+                <div>
+                    <h1 class="mytrips-title">My Trips</h1>
+                    <p class="mytrips-subtitle">
+                        View and manage all your planned journeys.
+                    </p>
+                </div>
 
-            <div class="top-bar">
-
-                <a href="CreateTrip.aspx" class="create-btn">+ Create New Trip
-                </a>
+                <asp:HyperLink ID="lnkCreateTrip" runat="server"
+                    NavigateUrl="~/User/CreateTrip.aspx"
+                    CssClass="create-trip-link">
+                    + Create New Trip
+                </asp:HyperLink>
 
             </div>
 
+            <div class="mytrips-card">
 
-            <div class="trips-grid">
+                <h3 class="mytrips-card-title">Your Travel Plans</h3>
 
-                <asp:Repeater ID="rptTrips" runat="server" OnItemCommand="rptTrips_ItemCommand1">
-                    <ItemTemplate>
 
-                        <div class="trip-card">
+                <asp:GridView ID="gvTrips" runat="server"
+                    CssClass="trip-grid"
+                    AutoGenerateColumns="False"
+                    DataKeyNames="Id"
+                    GridLines="None"
+                    Width="100%"
+                    EmptyDataText="You have not created any trips yet."
+                    OnRowEditing="gvTrips_RowEditing"
+                    OnRowCancelingEdit="gvTrips_RowCancelingEdit"
+                    OnRowUpdating="gvTrips_RowUpdating"
+                    OnRowDeleting="gvTrips_RowDeleting">
 
-                            <div class="trip-icon">🏖️</div>
+                    <Columns>
 
-                            <h3>
-                                <%# Eval("Trip_Name") %>
-            </h3>
+                        <asp:BoundField DataField="Trip_Name"
+                            HeaderText="Trip Name" />
 
-                            <div class="trip-info">
+                        <asp:BoundField DataField="Destination"
+                            HeaderText="Destination" />
 
-                                <strong>Destination:</strong>
-                                <%# Eval("Destination") %>
-                                <br />
+                        <asp:BoundField DataField="Start_Date"
+                            HeaderText="Start Date"
+                            DataFormatString="{0:dd-MM-yyyy}" />
 
-                                <strong>Start Date:</strong>
-                                <%# Eval("Start_Date", "{0:dd-MM-yyyy}") %>
-                                <br />
+                        <asp:BoundField DataField="End_Date"
+                            HeaderText="End Date"
+                            DataFormatString="{0:dd-MM-yyyy}" />
 
-                                <strong>End Date:</strong>
-                                <%# Eval("End_Date", "{0:dd-MM-yyyy}") %>
-                                <br />
+                        <asp:BoundField DataField="Travellers"
+                            HeaderText="Travellers" />
 
-                                <strong>Travellers:</strong>
-                                <%# Eval("Travellers") %>
-                                <br />
+                        <asp:BoundField DataField="Trip_Type"
+                            HeaderText="Trip Type" />
 
-                                <strong>Budget:</strong>
-                                ₹<%# Eval("Budget") %>
-                            </div>
+                        <asp:BoundField DataField="Budget"
+                            HeaderText="Budget (₹)" />
 
-                            <span class="status">Planned </span>
-           
+                        <asp:BoundField DataField="Notes"
+                            HeaderText="Notes" />
 
-                            <asp:HyperLink ID="lnkDetails" runat="server" CssClass="details-btn" NavigateUrl='<%# "TripDetails.aspx?id=" + Eval("Id") %>'>View Details
-                            </asp:HyperLink>
+                        <asp:CommandField ShowEditButton="True"
+                            EditText="Edit"
+                            UpdateText="Save"
+                            CancelText="Cancel"
+                            HeaderText="Edit" />
 
-                        </div>
+                        <asp:CommandField ShowDeleteButton="True"
+                            DeleteText="Delete"
+                            HeaderText="Delete" />
 
-                    </ItemTemplate>
+                    </Columns>
 
-                </asp:Repeater>
+                </asp:GridView>
+
+
+                <asp:Label ID="lblMessage" runat="server"
+                    CssClass="trip-message"></asp:Label>
+
+                <p class="mytrips-note">
+                    Your trips are displayed according to your logged-in account.
+                </p>
 
             </div>
 
@@ -200,12 +263,4 @@
 
     </div>
 
-</asp:Content>
-
-
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-</asp:Content>
-
-
-<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 </asp:Content>

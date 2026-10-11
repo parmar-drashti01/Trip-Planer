@@ -76,7 +76,7 @@ namespace Trip_Planer.User
                 lblBudget.Text = dr["Budget"].ToString();
 
                 lblNotes.Text = dr["Notes"].ToString();
-                lnkItinerary.NavigateUrl = "AddItinerary.aspx?Id=" + Request.QueryString["Id"];
+                lnkItinerary.NavigateUrl = "AddItinerary.aspx?Id=" + Request.QueryString["Id"]; 
             }
             else
             {

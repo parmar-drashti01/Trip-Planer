@@ -1,299 +1,302 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CreateTrip.aspx.cs" Inherits="Trip_Planer.User.CreateTrip" %>
+﻿
+<%@ Page Title="Create Trip" Language="C#" MasterPageFile="~/Site1.Master"
+    AutoEventWireup="true" CodeBehind="CreateTrip.aspx.cs"
+    Inherits="Trip_Planer.User.CreateTrip" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <style>
-        .trip-page {
-            min-height: 75vh;
-            background: #f5f9fc;
+        .create-trip-page {
+            min-height: 80vh;
             padding: 45px 20px;
+            background: #f3f7fb;
+            font-family: Arial, sans-serif;
         }
 
         .trip-container {
-            max-width: 900px;
-            margin: auto;
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(20, 55, 80, 0.12);
         }
 
-        .trip-title {
+        .trip-header {
+            background: linear-gradient(135deg, #176B87, #45a6ad);
+            color: white;
             text-align: center;
-            color: #1f4e5f;
+            padding: 35px 20px;
+        }
+
+        .trip-header h1 {
             font-size: 32px;
+            margin: 0 0 12px;
             font-weight: 700;
-            margin-bottom: 8px;
         }
 
-        .trip-subtitle {
-            text-align: center;
-            color: #777;
-            margin-bottom: 30px;
+        .trip-header p {
+            margin: 0;
+            font-size: 15px;
+            color: #eefcff;
         }
 
-        .trip-box {
-            background: white;
+        .trip-form-body {
             padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
-        .form-row {
+        .trip-section-title {
+            font-size: 20px;
+            color: #176B87;
+            font-weight: 700;
+            margin: 0 0 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5edf1;
+        }
+
+        .trip-form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 23px 25px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .trip-form-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
 
-        .form-label {
-            display: block;
-            color: #333;
+        .trip-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .trip-form-group label {
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 7px;
+            color: #344b5b;
+            margin-bottom: 9px;
         }
 
         .trip-input,
         .trip-select {
             width: 100%;
-            height: 45px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px 13px;
             box-sizing: border-box;
-            background: white;
+            padding: 13px 14px;
+            border: 1px solid #d6e1e8;
+            border-radius: 9px;
+            background: #fbfdff;
+            color: #263b49;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-            .trip-input:focus,
-            .trip-select:focus {
-                border-color: #1f8a9e;
-                outline: none;
-                box-shadow: 0 0 5px rgba(31,138,158,0.20);
-            }
+        .trip-input:focus,
+        .trip-select:focus {
+            border-color: #176B87;
+            box-shadow: 0 0 0 3px rgba(23, 107, 135, 0.12);
+            background: #ffffff;
+        }
 
-        .trip-textarea {
-            width: 100%;
-            min-height: 100px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px 13px;
-            box-sizing: border-box;
+        .trip-input::placeholder {
+            color: #9aaab4;
+        }
+
+        textarea.trip-input {
             resize: vertical;
+            min-height: 110px;
         }
 
-        .create-btn {
-            width: 100%;
-            height: 46px;
+        .trip-button-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .trip-button {
+            flex: 1;
+            padding: 14px 20px;
             border: none;
-            border-radius: 8px;
-            background: #1f8a9e;
-            color: white;
-            font-size: 16px;
+            border-radius: 9px;
+            background: #176B87;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .trip-button:hover {
+            background: #10546c;
+            transform: translateY(-2px);
+        }
+
+        .trip-reset-button {
+            display: inline-block;
+            padding: 14px 20px;
+            border: 1px solid #cbd9e1;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #405866;
+            text-decoration: none;
+            text-align: center;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 5px;
         }
 
-            .create-btn:hover {
-                background: #176d7d;
-            }
+        .trip-reset-button:hover {
+            background: #f0f6f8;
+        }
 
-        .back-link {
+        .trip-message {
             display: block;
+            margin-top: 20px;
             text-align: center;
-            margin-top: 18px;
-            color: #1f8a9e;
-            text-decoration: none;
             font-weight: 600;
+            font-size: 14px;
         }
 
-            .back-link:hover {
-                text-decoration: underline;
+        .trip-footer-note {
+            margin-top: 22px;
+            text-align: center;
+            color: #8797a1;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .create-trip-page {
+                padding: 20px 10px;
             }
 
-        @media(max-width: 700px) {
-            .form-row {
+            .trip-form-body {
+                padding: 22px 18px;
+            }
+
+            .trip-header {
+                padding: 28px 15px;
+            }
+
+            .trip-header h1 {
+                font-size: 26px;
+            }
+
+            .trip-form-grid {
                 grid-template-columns: 1fr;
-                gap: 0;
+                gap: 18px;
             }
 
-            .trip-box {
-                padding: 25px 20px;
+            .trip-form-group.full-width {
+                grid-column: auto;
+            }
+
+            .trip-button-row {
+                flex-direction: column;
             }
         }
     </style>
 
 </asp:Content>
 
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="trip-page">
+
+    <div class="create-trip-page">
 
         <div class="trip-container">
 
-            <h2 class="trip-title">Create Your Trip</h2>
+            <div class="trip-header">
+                <h1>Create Your Trip</h1>
+                <p>Plan your journey, explore new places and make memories.</p>
+            </div>
 
-            <p class="trip-subtitle">
-                Plan your next journey with Trip Planner
-           
-            </p>
+            <div class="trip-form-body">
 
-            <div class="trip-box">
+                <h3 class="trip-section-title">Trip Information</h3>
 
-                <div class="form-group">
+                <div class="trip-form-grid">
 
-                    <label class="form-label">Trip Name</label>
-
-                    <asp:TextBox ID="txtTripName" runat="server" CssClass="trip-input" placeholder="Enter trip name" OnTextChanged="txtTripName_TextChanged"></asp:TextBox>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="form-label">Destination</label>
-
-                    <asp:TextBox ID="txtDestination" runat="server"
-                        CssClass="trip-input"
-                        placeholder="Enter your destination">
-                    </asp:TextBox>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            Start Date
-                       
-                        </label>
-
-                        <asp:TextBox ID="txtStartDate"
-                            runat="server"
+                    <div class="trip-form-group">
+                        <label>Trip Name *</label>
+                        <asp:TextBox ID="txtTripName" runat="server"
                             CssClass="trip-input"
-                            TextMode="Date">
-                        </asp:TextBox>
-
+                            placeholder="e.g. Summer Vacation" />
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            End Date
-                       
-                        </label>
-
-                        <asp:TextBox ID="txtEndDate"
-                            runat="server"
+                    <div class="trip-form-group">
+                        <label>Destination *</label>
+                        <asp:TextBox ID="txtDestination" runat="server"
                             CssClass="trip-input"
-                            TextMode="Date">
-                        </asp:TextBox>
-
+                            placeholder="e.g. Goa, Manali" />
                     </div>
 
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            Number of Travellers
-                       
-                        </label>
-
-                        <asp:TextBox ID="txtTravellers"
-                            runat="server"
-                            CssClass="trip-input"
-                            TextMode="Number"
-                            placeholder="Enter number of travellers">
-                        </asp:TextBox>
-
+                    <div class="trip-form-group">
+                        <label>Start Date *</label>
+                        <asp:TextBox ID="txtStartDate" runat="server"
+                            CssClass="trip-input" TextMode="Date" OnTextChanged="txtStartDate_TextChanged" />
                     </div>
 
+                    <div class="trip-form-group">
+                        <label>End Date *</label>
+                        <asp:TextBox ID="txtEndDate" runat="server"
+                            CssClass="trip-input" TextMode="Date" />
+                    </div>
 
-                    <div class="form-group">
+                    <div class="trip-form-group">
+                        <label>Number of Travellers *</label>
+                        <asp:TextBox ID="txtTravellers" runat="server"
+                            CssClass="trip-input" TextMode="Number"
+                            placeholder="Enter number of travellers" />
+                    </div>
 
-                        <label class="form-label">
-                            Trip Type
-                       
-                        </label>
-
-                        <asp:DropDownList ID="ddlTripType"
-                            runat="server"
+                    <div class="trip-form-group">
+                        <label>Trip Type *</label>
+                        <asp:DropDownList ID="ddlTripType" runat="server"
                             CssClass="trip-select">
-
-                            <asp:ListItem Text="Select Trip Type"
-                                Value="">
-                            </asp:ListItem>
-
-                            <asp:ListItem Text="Adventure"
-                                Value="Adventure">
-                            </asp:ListItem>
-
-                            <asp:ListItem Text="Family"
-                                Value="Family">
-                            </asp:ListItem>
-
-                            <asp:ListItem Text="Solo"
-                                Value="Solo">
-                            </asp:ListItem>
-
-                            <asp:ListItem Text="Couple"
-                                Value="Couple">
-                            </asp:ListItem>
-
+                            <asp:ListItem Text="Select Trip Type" Value=""></asp:ListItem>
+                            <asp:ListItem Text="Solo Travel" Value="Solo"></asp:ListItem>
+                            <asp:ListItem Text="Family Trip" Value="Family"></asp:ListItem>
+                            <asp:ListItem Text="Friends Trip" Value="Friends"></asp:ListItem>
+                            <asp:ListItem Text="Couple Trip" Value="Couple"></asp:ListItem>
                         </asp:DropDownList>
+                    </div>
 
+                    <div class="trip-form-group full-width">
+                        <label>Estimated Budget (₹) *</label>
+                        <asp:TextBox ID="txtBudget" runat="server"
+                            CssClass="trip-input"
+                            placeholder="e.g. 10000" />
+                    </div>
+
+                    <div class="trip-form-group full-width">
+                        <label>Additional Notes</label>
+                        <asp:TextBox ID="txtNotes" runat="server"
+                            CssClass="trip-input"
+                            TextMode="MultiLine" Rows="4"
+                            placeholder="Write your preferences or other trip details..." />
                     </div>
 
                 </div>
 
+                <div class="trip-button-row">
 
-                <div class="form-group">
+                    <asp:Button ID="btnCreateTrip" runat="server"
+                        Text="Create Trip"
+                        CssClass="trip-button"
+                        OnClick="btnCreateTrip_Click" />
 
-                    <label class="form-label">
-                        Budget
-                   
-                    </label>
-
-                    <asp:TextBox ID="txtBudget"
-                        runat="server"
-                        CssClass="trip-input"
-                        TextMode="Number"
-                        placeholder="Enter your estimated budget">
-                    </asp:TextBox>
+                    <asp:Button ID="btnClear" runat="server"
+                        Text="Clear Form"
+                        CssClass="trip-reset-button"
+                        CausesValidation="false"
+                        OnClientClick="clearTripForm(); return false;" />
 
                 </div>
 
+                <asp:Label ID="lblMessage" runat="server"
+                    CssClass="trip-message"></asp:Label>
 
-                <div class="form-group">
-
-                    <label class="form-label">
-                        Notes / Requirements
-                   
-                    </label>
-
-                    <asp:TextBox ID="txtNotes"
-                        runat="server"
-                        CssClass="trip-textarea"
-                        TextMode="MultiLine"
-                        placeholder="Enter any special requirements or notes">
-                    </asp:TextBox>
-
-                </div>
-
-
-                <asp:Button ID="btnCreateTrip"
-                    runat="server"
-                    Text="Create Trip"
-                    CssClass="create-btn" OnClick="btnCreateTrip_Click" />
-
-
-                <a href="UserHome.aspx"
-                    class="back-link">← Back to User Home
-                </a>
+               
 
             </div>
 
@@ -301,10 +304,17 @@
 
     </div>
 
-</asp:Content>
+    <script>
+        function clearTripForm() {
+            document.getElementById('<%= txtTripName.ClientID %>').value = '';
+            document.getElementById('<%= txtDestination.ClientID %>').value = '';
+            document.getElementById('<%= txtStartDate.ClientID %>').value = '';
+            document.getElementById('<%= txtEndDate.ClientID %>').value = '';
+            document.getElementById('<%= txtTravellers.ClientID %>').value = '';
+            document.getElementById('<%= ddlTripType.ClientID %>').selectedIndex = 0;
+            document.getElementById('<%= txtBudget.ClientID %>').value = '';
+            document.getElementById('<%= txtNotes.ClientID %>').value = '';
+        }
+    </script>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 </asp:Content>

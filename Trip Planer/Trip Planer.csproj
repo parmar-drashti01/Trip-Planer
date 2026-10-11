@@ -148,6 +148,7 @@
     <Content Include="Logout.aspx" />
     <Content Include="main.html" />
     <Content Include="readme.txt" />
+    <Content Include="RegistrationNew.aspx" />
     <Content Include="single.html" />
     <Content Include="trip-single.html" />
     <Content Include="Trip.aspx" />
@@ -233,6 +234,7 @@
     <Content Include="trips.html" />
     <Content Include="User\AddItinerary.aspx" />
     <Content Include="User\CreateTrip.aspx" />
+    <Content Include="User\Destinations.aspx" />
     <Content Include="User\Feedback.aspx" />
     <Content Include="User\Itinerary.aspx" />
     <Content Include="User\MyProfile.aspx" />
@@ -329,6 +331,13 @@
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationNew.aspx.cs">
+      <DependentUpon>RegistrationNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrationNew.aspx.designer.cs">
+      <DependentUpon>RegistrationNew.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,6 +372,13 @@
     </Compile>
     <Compile Include="User\CreateTrip.aspx.designer.cs">
       <DependentUpon>CreateTrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Destinations.aspx.cs">
+      <DependentUpon>Destinations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Destinations.aspx.designer.cs">
+      <DependentUpon>Destinations.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\Feedback.aspx.cs">
       <DependentUpon>Feedback.aspx</DependentUpon>

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
+﻿
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Trip_Planer.User
 {
@@ -25,76 +21,176 @@ namespace Trip_Planer.User
         {
             if (Session["Email"] == null)
             {
-                Response.Redirect("../Login.aspx");
-            }
-            else
-            {
-                if (!IsPostBack)
-                {
-                    getTripDetails();
-                    getItinerary();
-                }
+                Response.Redirect("~/Login.aspx");
+                return;
             }
 
+            if (!IsPostBack)
+            {
+                BindTrips();
+                BindItinerary();
+            }
         }
+
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
-        void getTripDetails()
+
+        private void BindTrips()
         {
-            if (Request.QueryString["Id"] == null)
+            using (SqlConnection con = new SqlConnection(s))
             {
-                Response.Redirect("MyTrips.aspx");
+                string query = @"SELECT Id, Trip_Name
+                                 FROM Trip_tbl
+                                 WHERE Email = @Email
+                                 ORDER BY Id DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@Email", Session["Email"].ToString());
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        ddlTrip.DataSource = dt;
+                        ddlTrip.DataTextField = "Trip_Name";
+                        ddlTrip.DataValueField = "Id";
+                        ddlTrip.DataBind();
+                    }
+                }
             }
 
-            getcon();
-
-            da = new SqlDataAdapter(
-                "select * from Trip_tbl where Id='" +
-                Request.QueryString["Id"] +
-                "' and Email='" + Session["Email"] + "'", con);
-
-            ds = new DataSet();
-            da.Fill(ds);
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow dr = ds.Tables[0].Rows[0];
-
-                lblTripName.Text = dr["Trip_Name"].ToString();
-                lblDestination.Text = dr["Destination"].ToString();
-
-                lblStartDate.Text =
-                    Convert.ToDateTime(dr["Start_Date"]).ToString("dd-MM-yyyy");
-
-                lblEndDate.Text =
-                    Convert.ToDateTime(dr["End_Date"]).ToString("dd-MM-yyyy");
-            }
-            else
-            {
-                Response.Redirect("MyTrips.aspx");
-            }
-
+            ddlTrip.Items.Insert(0,
+                new ListItem("-- Select Trip --", ""));
         }
 
-        void getItinerary()
+        protected void ddlTrip_SelectedIndexChanged(object sender, EventArgs e)
         {
-            getcon();
+            lblMessage.Text = "";
+            BindItinerary();
+        }
 
-            da = new SqlDataAdapter(
-                "select * from Itinerary_tbl where Trip_Id='" +
-                Request.QueryString["Id"] +
-                "' order by Day_No", con);
+        protected void btnAddActivity_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
 
-            ds = new DataSet();
-            da.Fill(ds);
+            if (ddlTrip.SelectedValue == "")
+            {
+                lblMessage.Text = "Please select a trip first.";
+                return;
+            }
 
-            rptItinerary.DataSource = ds;
-            rptItinerary.DataBind();
+            int dayNo;
 
-            
+            if (!int.TryParse(txtDayNo.Text.Trim(), out dayNo) || dayNo <= 0)
+            {
+                lblMessage.Text = "Please enter a valid day number.";
+                return;
+            }
+
+            if (txtDayTitle.Text.Trim() == "" ||
+                txtActivityTime.Text.Trim() == "" ||
+                txtActivity.Text.Trim() == "")
+            {
+                lblMessage.Text = "Please fill all activity fields.";
+                return;
+            }
+
+            string query = @"INSERT INTO Itinerary_tbl
+                             (Trip_Id, Day_No, Day_Title, Activity_Time, Activity)
+                             SELECT T.Id, @DayNo, @DayTitle, @ActivityTime, @Activity
+                             FROM Trip_tbl T
+                             WHERE T.Id = @TripId
+                             AND T.Email = @Email";
+
+            using (SqlConnection con = new SqlConnection(s))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@TripId", Convert.ToInt32(ddlTrip.SelectedValue));
+
+                    cmd.Parameters.AddWithValue(
+                        "@Email", Session["Email"].ToString());
+
+                    cmd.Parameters.AddWithValue(
+                        "@DayNo", dayNo);
+
+                    cmd.Parameters.AddWithValue(
+                        "@DayTitle", txtDayTitle.Text.Trim());
+
+                    cmd.Parameters.AddWithValue(
+                        "@ActivityTime", txtActivityTime.Text.Trim());
+
+                    cmd.Parameters.AddWithValue(
+                        "@Activity", txtActivity.Text.Trim());
+
+                    con.Open();
+
+                    int result = cmd.ExecuteNonQuery();
+
+                    if (result > 0)
+                    {
+                        lblMessage.Text = "Activity added successfully!";
+
+                        txtDayNo.Text = "";
+                        txtDayTitle.Text = "";
+                        txtActivityTime.Text = "";
+                        txtActivity.Text = "";
+
+                        BindItinerary();
+                    }
+                    else
+                    {
+                        lblMessage.Text =
+                            "Trip not found. Please select your trip again.";
+                    }
+                }
+            }
+        }
+
+        private void BindItinerary()
+        {
+            if (ddlTrip.SelectedValue == "")
+            {
+                gvItinerary.DataSource = null;
+                gvItinerary.DataBind();
+                return;
+            }
+
+            using (SqlConnection con = new SqlConnection(s))
+            {
+                string query = @"SELECT I.Id, I.Day_No, I.Day_Title,
+                                        I.Activity_Time, I.Activity
+                                 FROM Itinerary_tbl I
+                                 INNER JOIN Trip_tbl T ON I.Trip_Id = T.Id
+                                 WHERE I.Trip_Id = @TripId
+                                 AND T.Email = @Email
+                                 ORDER BY I.Day_No, I.Id";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@TripId", Convert.ToInt32(ddlTrip.SelectedValue));
+
+                    cmd.Parameters.AddWithValue(
+                        "@Email", Session["Email"].ToString());
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        gvItinerary.DataSource = dt;
+                        gvItinerary.DataBind();
+                    }
+                }
+            }
         }
     }
 }

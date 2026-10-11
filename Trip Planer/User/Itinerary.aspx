@@ -1,191 +1,207 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Itinerary.aspx.cs" Inherits="Trip_Planer.User.Itinerary" %>
+﻿
+<%@ Page Title="My Itinerary" Language="C#" MasterPageFile="~/Site1.Master"
+    AutoEventWireup="true" CodeBehind="Itinerary.aspx.cs"
+    Inherits="Trip_Planer.User.Itinerary" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
         .itinerary-page {
-            min-height: 75vh;
-            background: #f5f9fc;
-            padding: 45px 20px;
+            min-height: 80vh;
+            padding: 40px 20px;
+            background: #f3f7fb;
+            font-family: Arial, sans-serif;
         }
 
         .itinerary-container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
-        .page-title {
+        .itinerary-title {
+            color: #176B87;
             text-align: center;
-            color: #1f4e5f;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        .page-subtitle {
+        .itinerary-subtitle {
             text-align: center;
-            color: #777;
+            color: #71808a;
             margin-bottom: 30px;
         }
 
-        .itinerary-box {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
         }
 
-        .trip-header {
-            text-align: center;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 25px;
+        .itinerary-group {
+            display: flex;
+            flex-direction: column;
         }
 
-        .trip-icon {
-            font-size: 50px;
-        }
-
-        .trip-header h2 {
-            color: #1f4e5f;
-            margin: 10px 0 5px;
-        }
-
-        .trip-header p {
-            color: #777;
-            margin: 0;
-        }
-
-        .day-card {
-            border-left: 4px solid #1f8a9e;
-            background: #f8fbfc;
-            padding: 20px;
-            margin-bottom: 18px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .day-card h3 {
-            color: #1f4e5f;
-            margin-bottom: 12px;
-        }
-
-        .day-card p {
-            color: #666;
-            line-height: 1.7;
-            margin: 5px 0;
-        }
-
-        .time {
-            color: #1f8a9e;
+        .itinerary-group label {
+            margin-bottom: 8px;
             font-weight: 600;
+            color: #344b5b;
         }
 
-        .back-btn {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            background: #1f8a9e;
-            color: white;
-            padding: 11px;
+        .itinerary-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #d6e1e8;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            font-size: 14px;
         }
 
-        .back-btn:hover {
-            background: #176d7d;
+        .itinerary-full {
+            grid-column: 1 / -1;
+        }
+
+        .itinerary-button {
+            margin-top: 22px;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #176B87;
             color: white;
-            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        @media(max-width: 600px) {
-            .itinerary-box {
-                padding: 20px;
+        .itinerary-button:hover {
+            background: #10546c;
+        }
+
+        .itinerary-message {
+            display: block;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .itinerary-table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        .itinerary-table th {
+            background: #176B87;
+            color: white;
+            padding: 12px;
+        }
+
+        .itinerary-table td {
+            padding: 12px;
+            border: 1px solid #e1e8ed;
+        }
+
+        @media (max-width: 600px) {
+            .itinerary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .itinerary-full {
+                grid-column: auto;
+            }
+
+            .itinerary-container {
+                padding: 18px;
             }
         }
     </style>
 
 </asp:Content>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="itinerary-page">
-
         <div class="itinerary-container">
 
-            <h2 class="page-title">
-                Trip Itinerary
-            </h2>
+            <h1 class="itinerary-title">My Travel Itinerary</h1>
 
-            <p class="page-subtitle">
-                Your day-by-day travel plan
+            <p class="itinerary-subtitle">
+                Plan your trip day by day and organize your activities.
             </p>
 
+            <div class="itinerary-grid">
 
-            <div class="itinerary-box">
+                <div class="itinerary-group itinerary-full">
+                    <label>Select Trip *</label>
 
-                <div class="trip-header">
-
-                    <div class="trip-icon">
-                        🏖️
-                    </div>
-
-                    <h2>
-                        <asp:Label ID="lblTripName" runat="server"></asp:Label>
-                    </h2>
-
-                    <p>
-                        <asp:Label ID="lblDestination" runat="server"></asp:Label>
-                        |
-                        <asp:Label ID="lblStartDate" runat="server"></asp:Label>
-                        -
-                        <asp:Label ID="lblEndDate" runat="server"></asp:Label>
-                    </p>
-
+                    <asp:DropDownList ID="ddlTrip" runat="server"
+                        CssClass="itinerary-input"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlTrip_SelectedIndexChanged">
+                    </asp:DropDownList>
                 </div>
 
+                <div class="itinerary-group">
+                    <label>Day Number *</label>
 
-                <asp:Repeater ID="rptItinerary" runat="server">
+                    <asp:TextBox ID="txtDayNo" runat="server"
+                        CssClass="itinerary-input"
+                        TextMode="Number"
+                        placeholder="e.g. 1" />
+                </div>
 
-                    <ItemTemplate>
+                <div class="itinerary-group">
+                    <label>Day Title *</label>
 
-                        <div class="day-card">
+                    <asp:TextBox ID="txtDayTitle" runat="server"
+                        CssClass="itinerary-input"
+                        placeholder="e.g. Beach Exploration" />
+                </div>
 
-                            <h3>
-                                Day <%# Eval("Day_No") %> -
-                                <%# Eval("Day_Title") %>
-                            </h3>
+                <div class="itinerary-group">
+                    <label>Activity Time *</label>
 
-                            <p>
-                                <span class="time">
-                                    <%# Eval("Activity_Time") %>
-                                </span>
-                                -
-                                <%# Eval("Activity") %>
-                            </p>
+                    <asp:TextBox ID="txtActivityTime" runat="server"
+                        CssClass="itinerary-input"
+                        placeholder="e.g. 10:00 AM" />
+                </div>
 
-                        </div>
+                <div class="itinerary-group">
+                    <label>Activity *</label>
 
-                    </ItemTemplate>
-
-                </asp:Repeater>
-
-
-                <a href="MyTrips.aspx" class="back-btn">
-                    ← Back to My Trips
-                </a>
+                    <asp:TextBox ID="txtActivity" runat="server"
+                        CssClass="itinerary-input"
+                        placeholder="e.g. Visit Baga Beach" />
+                </div>
 
             </div>
 
-        </div>
+            <asp:Button ID="btnAddActivity" runat="server"
+                Text="Add Activity"
+                CssClass="itinerary-button"
+                OnClick="btnAddActivity_Click" />
 
+            <asp:Label ID="lblMessage" runat="server"
+                CssClass="itinerary-message"></asp:Label>
+
+            <h2 class="itinerary-title">Your Activities</h2>
+
+            <asp:GridView ID="gvItinerary" runat="server"
+                AutoGenerateColumns="False"
+                CssClass="itinerary-table"
+                EmptyDataText="No activities added yet.">
+
+                <Columns>
+                    <asp:BoundField DataField="Day_No" HeaderText="Day" />
+                    <asp:BoundField DataField="Day_Title" HeaderText="Day Title" />
+                    <asp:BoundField DataField="Activity_Time" HeaderText="Time" />
+                    <asp:BoundField DataField="Activity" HeaderText="Activity" />
+                </Columns>
+
+            </asp:GridView>
+
+        </div>
     </div>
 
-</asp:Content>
-
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 </asp:Content>

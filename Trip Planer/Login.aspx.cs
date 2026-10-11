@@ -38,35 +38,46 @@ namespace Trip_Planer
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(txtEmail.Text) ||
-               String.IsNullOrEmpty(txtPassword.Text))
+                String.IsNullOrEmpty(txtPassword.Text))
             {
                 lblMessage.Text = "Please Enter Email and Password";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                return;
             }
-            else
+
+            getcon();
+
+            cmd = new SqlCommand(
+                "select count(*) from Registration_tbl where Email='" +
+                txtEmail.Text.Trim() +
+                "' and Password='" +
+                txtPassword.Text +
+                "'", con);
+
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+
+            if (i > 0)
             {
-                getcon();
+                Session["Email"] = txtEmail.Text.Trim();
 
-                cmd = new SqlCommand("select count(*) from Registration_tbl where Email='" + txtEmail.Text + "' and Password='" + txtPassword.Text + "'", con);
+                string email = txtEmail.Text.Trim().ToLower();
 
-                int i = Convert.ToInt32(cmd.ExecuteScalar());
-
-                if (i > 0)
+                if (email == "dparmar190@rku.ac.in" ||
+                    email == "drathod997@rku.ac.in")
                 {
-                    Session["Email"] = txtEmail.Text;
-
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("Admin/Dashboard.aspx");
                 }
                 else
                 {
-                    Response.Write("Invalid Email or Password");
+                    Response.Redirect("User/UserHome.aspx");
                 }
-
-                
             }
-        }
+            else
+            {
+                lblMessage.Text = "Invalid Email or Password";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
 
-        protected void txtPassword_TextChanged(object sender, EventArgs e)
-        {
 
         }
     }
